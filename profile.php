@@ -162,12 +162,12 @@ if(isset($_COOKIE['admin']) && $_COOKIE['admin'] == "21232f297a57a5a743894a0e4a8
             <tr>
               <th scope="col">#</th>
               <th scope="col">Время</th>
-              <th scope="col">ФИО</th>
+              <th scope="col">Клиент</th>
               <th scope="col">Процедура</th>
             </tr>
           </thead>
           <tbody>
-          	<?
+          	<?php
           	foreach ($orders as $key => $value) {
           		$id = $value["id"];
           		$proc = $value["regName"];

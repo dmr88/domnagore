@@ -9,9 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	// Проверка пользователя в базе данных
 	// Замените эту часть кода на вашу аутентификацию пользователя
 
-	$dbh = new PDO('mysql:host=localhost;dbname=p-340998_beauty_salon_db;charset=utf8','root','root');
-	// Set the PDO error mode to exception
-	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	require_once('connect.php');
 	$sth = $dbh->prepare("Select * from users WHERE `username`='$username' and `password`='$password';");
 	$sth->execute();
 	$result = $sth->fetchAll(PDO::FETCH_ASSOC);

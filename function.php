@@ -11,8 +11,7 @@
     }
   }
 
-  function query($request, $dbh)
-  {
+  function query($request, $dbh){
     $sth = $dbh->prepare($request);
     $sth->execute();
     return $sth->fetchAll(PDO::FETCH_ASSOC);

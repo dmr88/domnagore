@@ -31,7 +31,7 @@ if(isset($_COOKIE['admin'])){
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Profile</title>
+	<title>Услуги по специалистам</title>
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -143,7 +143,7 @@ if(isset($_COOKIE['admin'])){
     </div>
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <h2>Персональные Записи по специалистам</h2>
+      <h2>Услуги по специалистам</h2>
       <div class="table-responsive small">
         <table class="table table-striped table-sm">
           <thead>
@@ -156,12 +156,11 @@ if(isset($_COOKIE['admin'])){
             </tr>
           </thead>
           <tbody>
-          	<?
+          	<?php
             foreach ($orders as $key => $value) {
           		$id = $value["id"];
-              $service_id = query("SELECT `user_id` FROM `service_person` WHERE service_id = ".$value['id']."", $dbh);
-              $person_name = query("SELECT `username` FROM `users` WHERE id = ".$service_id[0]['user_id']."", $dbh);
-              
+              $service_id = query("SELECT `user_id` FROM `service_person` WHERE service_id = '".$value['id']."'", $dbh);
+              $person_name = query("SELECT `username` FROM `users` WHERE id = '".$service_id[0]['user_id']."'", $dbh);
               echo "<tr>
                   <td>$id</td>
                   <td>".$value['name']."</td>

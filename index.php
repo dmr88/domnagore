@@ -1,4 +1,6 @@
-<?
+<?php
+require_once('connect.php');
+require_once('function.php');
 if(isset($_GET['helloboys'])){
 	print('
 	<body style="background: url(\'https://i.kym-cdn.com/entries/icons/original/000/028/367/cover1.jpg\');background-size: cover;background-repeat: no-repeat;background-position: center;">
@@ -50,7 +52,7 @@ if(isset($_GET['hellogirls'])){
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
-                  <?
+          <?php
           if(isset($_COOKIE['uid'])){
             echo '<a class="nav-link" href="profile.php">Личный кабинет</a>
           </li>';
@@ -130,13 +132,17 @@ if(isset($_GET['hellogirls'])){
   <section id="services" class="container mt-4">
     <h2>Услуги</h2>
     <div class="row">
+      <?php 
+        $orders = query("SELECT * FROM `service`",$dbh);
+        foreach ($orders as $key => $value) {
+      ?>
       <div class="col-md-4">
         <div class="card service-card">
           <div class="card-body">
-            <h3>Ламинирование ресниц</h3>
-            <p>Ламинирование ресниц — это процедура, направленная на укрепление и визуальное увеличение объема естественных ресниц.</p>
-            <p>Цена: $50</p>
-            <?
+            <h3><?php echo $value['name']?></h3>
+            <p><?php echo $value['desc']?></p>
+            <p>Цена: <?php echo $value['price']?> тг.</p>
+            <?php
             if (isset($_COOKIE['uid'])) {
               echo '<button class="btn btn-custom" onclick="window.location.href=\'form.html\'">Записаться</button>';
             }else{
@@ -146,86 +152,7 @@ if(isset($_GET['hellogirls'])){
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card service-card">
-          <div class="card-body">
-            <h3>Наращивание ресниц</h3>
-            <p>Наращивание ресниц — это процесс добавления искусственных ресниц к естественным для увеличения их объема и длины.</p>
-            <p>Цена: $70</p>
-            <?
-            if (isset($_COOKIE['uid'])) {
-              echo '<button class="btn btn-custom" onclick="window.location.href=\'form.html\'">Записаться</button>';
-            }else{
-              echo '<span>Для записи необходима <a href="login.php" class="form-button">Регистрация</a></span>';
-            }
-            ?>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card service-card">
-          <div class="card-body">
-            <h3>Маникюр</h3>
-            <p>Маникюр — это уход за ногтями и кожей рук, включающий обрезание, формирование и покрытие ногтевой пластины.</p>
-            <p>Цена: $25</p>
-            <?
-            if (isset($_COOKIE['uid'])) {
-              echo '<button class="btn btn-custom" onclick="window.location.href=\'form.html\'">Записаться</button>';
-            }else{
-              echo '<span>Для записи необходима <a href="login.php" class="form-button">Регистрация</a></span>';
-            }
-            ?>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card service-card">
-          <div class="card-body">
-            <h3>Педикюр</h3>
-            <p>Педикюр — это процедура ухода за ногтями и кожей стоп, включая обрезание ногтей, удаление ороговевшей кожи и массаж стоп.</p>
-            <p>Цена: $35</p>
-            <?
-            if (isset($_COOKIE['uid'])) {
-              echo '<button class="btn btn-custom" onclick="window.location.href=\'form.html\'">Записаться</button>';
-            }else{
-              echo '<span>Для записи необходима <a href="login.php" class="form-button">Регистрация</a></span>';
-            }
-            ?>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card service-card">
-          <div class="card-body">
-            <h3>Стрижка</h3>
-            <p>Стрижка — это процесс обрезания или формирования волос с целью изменения их длины или стиля.</p>
-            <p>Цена: $40</p>
-            <?
-            if (isset($_COOKIE['uid'])) {
-              echo '<button class="btn btn-custom" onclick="window.location.href=\'form.html\'">Записаться</button>';
-            }else{
-              echo '<span>Для записи необходима <a href="login.php" class="form-button">Регистрация</a></span>';
-            }
-            ?>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card service-card">
-          <div class="card-body">
-            <h3>Окрашивание</h3>
-            <p>Окрашивание — это процедура изменения цвета волос с помощью красящих средств.</p>
-            <p>Цена: $60</p>
-            <?
-            if (isset($_COOKIE['uid'])) {
-              echo '<button class="btn btn-custom" onclick="window.location.href=\'form.html\'">Записаться</button>';
-            }else{
-              echo '<span>Для записи необходима <a href="login.php" class="form-button">Регистрация</a></span>';
-            }
-            ?>
-          </div>
-        </div>
-      </div>
+      <?php } ?>
     </div>
   </section>
 	<section id="services" class=" bg-grey">
