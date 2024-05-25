@@ -1,0 +1,31 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Запись на услугу</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h2><center>Запись на услугу</h2></center>
+<form class="form" action="form.php" method="post">
+    <label for="datetime">Дата и время:</label>
+    <input type="datetime-local" id="datetime" name="datetime" required>
+
+    <label for="service">Выберите услугу:</label>
+    <select id="service" name="service" required>
+        <option value="">Выберите услугу...</option>
+        <option value="Ламинирование ресниц">Ламинирование ресниц</option>
+        <option value="Наращивание ресниц">Наращивание ресниц</option>
+        <option value="Маникюр">Маникюр</option>
+        <option value="Педикюр">Педикюр</option>
+        <option value="Окрашивание">Окрашивание</option>
+        <option value="Стрижка">Стрижка</option>
+    </select>
+
+    <input type="submit" value="Записаться">
+</form>
+
+</body>
+</html>
