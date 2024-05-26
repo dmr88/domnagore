@@ -144,7 +144,7 @@ if(isset($_GET['hellogirls'])){
             <p>Цена: <?php echo $value['price']?> тг.</p>
             <?php
             if (isset($_COOKIE['uid'])) {
-              echo '<button class="btn btn-custom" onclick="window.location.href=\'form.html\'">Записаться</button>';
+              echo '<button class="btn btn-custom" onclick="window.location.href=\'form.php\'">Записаться</button>';
             }else{
               echo '<span>Для записи необходима <a href="login.php" class="form-button">Регистрация</a></span>';
             }

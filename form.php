@@ -13,7 +13,8 @@ if($_POST['add']){
 	$id = $_COOKIE['uid'];
 	$t = $_POST["datetime"];
 	$service_id = $_POST["service"];
-	$sth = $dbh->prepare("INSERT INTO `registrations`(`uid`, `time`, `regName`, `service_id`) VALUES ($id,'$t','$service_id','$service_id')");
+	$user_id = $_POST["user_id"];
+	$sth = $dbh->prepare("INSERT INTO `registrations`(`uid`, `time`, `regName`, `service_id`, `person_id`) VALUES ($id,'$t','$service_id','$service_id', '$user_id')");
 	$sth->execute();
 	$result = $sth->fetchAll(PDO::FETCH_ASSOC);
 	if(count($result)>0){

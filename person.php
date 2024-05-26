@@ -177,6 +177,35 @@ if(isset($_COOKIE['admin'])){
           </tbody>
         </table>
       </div>
+      <h2>Специалисты</h2>
+      <div class="row">
+        <?php 
+          $orders = query("SELECT * FROM `users` WHERE role_id = 3",$dbh);
+          foreach ($orders as $key => $value) {
+        ?>
+        <div class="col-md-4">
+          <div class="card service-card">
+            <div class="card-body">
+              <h3><?php echo $value['username']?></h3>
+              <p>Телефон: <?php echo $value['phone']?></p>
+              <p>email: <?php echo $value['email']?></p>
+              <hr>
+              <?php 
+                $reg = query("SELECT * FROM `registrations` WHERE person_id = '".$value['id']."'",$dbh);
+                $total = 0;
+                foreach ($reg as $key => $value) {
+                  $price = query("SELECT price FROM `service` WHERE id = '".$reg[$key]['service_id']."'",$dbh);
+                  $total += $price[0]['price'];
+                }
+              ?>
+              <p>Кол-во клиентов: <?php echo count($reg);?></p>
+              <p>Сумма заказов: <?php echo $total?> тг.</p>
+              <!-- <a class="btn btn-custom">Записаться</a> -->
+            </div>
+          </div>
+        </div>
+        <?php } ?>
+      </div>
     </main>
   </div>
 </div>
