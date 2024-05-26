@@ -16,4 +16,15 @@
     $sth->execute();
     return $sth->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  function user_menu(){
+    echo $uid =  $_COOKIE['uid'];
+    // $orders = query("SELECT * FROM `users` WHERE id='".$uid."'", $dbh);
+		// foreach ($orders as $key => $value) { 
+    //   if($value['role_id'] == 3){
+    //     echo "Добро пожаловать, ". $value['username'];
+    //   }
+    // }    
+  }
+  
 ?>

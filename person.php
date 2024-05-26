@@ -101,33 +101,27 @@ if(isset($_COOKIE['admin'])){
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+          <?php 
+            echo "Добро пожаловать, ". $me['username'];
+          ?>
           <ul class="nav flex-column">
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="/">
-                <svg class="bi"><use xlink:href="#house-fill"></use></svg>
-                На главную
-              </a>
+                <svg class="bi"><use xlink:href="#house-fill"></use></svg>На главную</a>
             </li>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="profile.php">
-                <svg class="bi"><use xlink:href="#calendar3"></use></svg>
-                Записи
-              </a>
+                <svg class="bi"><use xlink:href="#calendar3"></use></svg>Записи</a>
             </li>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="person.php">
-                <svg class="bi"><use xlink:href="#list"></use></svg>
-                По специалистам
-              </a>
+                <svg class="bi"><use xlink:href="#list"></use></svg>По специалистам</a>
             </li>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="services.php">
-                <svg class="bi"><use xlink:href="#people"></use></svg>
-                Услуги
-              </a>
+                <svg class="bi"><use xlink:href="#people"></use></svg>Услуги</a>
             </li>
           </ul>
-
 
           <hr class="my-5">
 
@@ -144,6 +138,39 @@ if(isset($_COOKIE['admin'])){
     </div>
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <h2>Мои заказы</h2>
+      <div class="row">
+      <div class="table-responsive small">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Время</th>
+              <th scope="col">Клиент</th>
+              <th scope="col">Услуга</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php 
+          //  $myentry = query("SELECT * FROM `users` WHERE role_id = '".$id."'", $dbh);
+           $myentry = query("SELECT * FROM `registrations` WHERE person_id = 3", $dbh);
+
+           foreach ($myentry as $key => $value) {
+            $user_name = query("SELECT `username` FROM `users` WHERE id = ".$myentry[$key]['uid']." ", $dbh);
+            $service_name = query("SELECT `name` FROM `service` WHERE id = ".$myentry[$key]['service_id']." ", $dbh);
+                echo "<tr>
+                    <td>".$value['id']."</td>
+                    <td>".$value['time']."</td>
+                    <td>".$user_name[0]['username']."</td>
+                    <td>".$service_name[0]['name']."</td>
+            	  </tr>";
+          	}
+          	?>
+          </tbody>
+        </table>
+      </div>
+       
+      </div>
       <h2>Персональные Записи по специалистам</h2>
       <div class="table-responsive small">
         <table class="table table-striped table-sm">
@@ -200,7 +227,6 @@ if(isset($_COOKIE['admin'])){
               ?>
               <p>Кол-во клиентов: <?php echo count($reg);?></p>
               <p>Сумма заказов: <?php echo $total?> тг.</p>
-              <!-- <a class="btn btn-custom">Записаться</a> -->
             </div>
           </div>
         </div>

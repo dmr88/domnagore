@@ -8,8 +8,6 @@ include_once('function.php');
 
 if($_POST['add']){
 
-	print_r($_POST);
-
 	$id = $_COOKIE['uid'];
 	$t = $_POST["datetime"];
 	$service_id = $_POST["service"];
