@@ -1,16 +1,49 @@
 $(document).ready(function(){
-  $("#service").change(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
-    var service_id = $(this).val(); /* GET THE VALUE OF THE SELECTED DATA */
-    var dataString = "service_id="+service_id; /* STORE THAT TO A DATA STRING */
+   
+  var timepicker = $('#timepicker');
 
-    $.ajax({ /* THEN THE AJAX CALL */
-      type: "POST", /* TYPE OF METHOD TO USE TO PASS THE DATA */
-      url: "get-data.php", /* PAGE WHERE WE WILL PASS THE DATA */
-      data: dataString, /* THE DATA WE WILL BE PASSING */
-      success: function(result){ /* GET THE TO BE RETURNED DATA */
-        $("#show").html(result); /* THE RETURNED DATA WILL BE SHOWN IN THIS DIV */
+  // Properties for End time
+  timepicker.timepicker({
+    'timeFormat': 'H:i',
+    'minTime': '8:00am',
+    'maxTime': '8:00pm',
+    'defaultTime': '11',
+    'step': 30,
+    'showDuration': false
+  });
+
+  $("#service").change(function(){
+    var service_id = $(this).val();
+
+    var day = $('#datetime').val();
+    var time = $('#timepicker').val();
+    var cDtime = day + ' ' + time + ':00';
+
+    $.ajax({
+      type: "POST",
+      url: "get-data.php",
+      data: {service:service_id, datetime:cDtime},
+      success: function(result){
+        $("#show").html(result);
       }
     });
-
   });
+
+  // $("#timepicker").change(function(){
+  //   var time = $(this).val();
+  //   var day = $('#datetime').val();
+  //   var cDtime = day + ' ' + time + ':00';
+  //   var dataString = "datetime=" + cDtime;
+
+  //   $.ajax({
+  //     type: "POST",
+  //     url: "get-time.php",
+  //     data: dataString,
+  //     success: function(result){
+  //       $("#dateResult").html(result);
+  //     }
+  //   });
+  // });
+
+
 })

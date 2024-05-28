@@ -101,7 +101,7 @@ if(isset($_COOKIE['admin'])){
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
-        <?php 
+          <?php 
             echo "Добро пожаловать, ". $me['username'];
             mainNav($me['role_id']);
           ?>
@@ -121,66 +121,38 @@ if(isset($_COOKIE['admin'])){
     </div>
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <h2>Персональные Записи по специалистам</h2>
+      <h2>Мои заказы</h2>
+      <div class="row">
       <div class="table-responsive small">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Специалист</th>
-              <th scope="col">Услуга</th>
               <th scope="col">Время</th>
               <th scope="col">Клиент</th>
+              <th scope="col">Услуга</th>
             </tr>
           </thead>
           <tbody>
-          	<?
-            foreach ($orders as $key => $value) {
-          		$id = $value["id"];
-              $person_name = query("SELECT `username` FROM `users` WHERE id = ".$value['person_id']." ", $dbh);
-              $service_name = query("SELECT `name` FROM `service` WHERE id = ".$value['service_id']." ", $dbh);
-          		$proc = $value["regName"];
-          		$username = $value["username"];
-          		$time = $value["time"];
+          <?php 
+          //  $myentry = query("SELECT * FROM `users` WHERE role_id = '".$id."'", $dbh);
+           $myentry = query("SELECT * FROM `registrations` WHERE person_id = '".$id."'", $dbh);
+
+           foreach ($myentry as $key => $value) {
+            $user_name = query("SELECT `username` FROM `users` WHERE id = ".$myentry[$key]['uid']." ", $dbh);
+            $service_name = query("SELECT `name` FROM `service` WHERE id = ".$myentry[$key]['service_id']." ", $dbh);
                 echo "<tr>
-                    <td>$id</td>
-                    <td>".$person_name[0]['username']."</td>
+                    <td>".$value['id']."</td>
+                    <td>".$value['time']."</td>
+                    <td>".$user_name[0]['username']."</td>
                     <td>".$service_name[0]['name']."</td>
-                    <td>$time</td>
-                    <td>$username</td>
             	  </tr>";
           	}
           	?>
           </tbody>
         </table>
       </div>
-      <h2>Специалисты</h2>
-      <div class="row">
-        <?php 
-          $orders = query("SELECT * FROM `users` WHERE role_id = 3",$dbh);
-          foreach ($orders as $key => $value) {
-        ?>
-        <div class="col-md-4">
-          <div class="card service-card">
-            <div class="card-body">
-              <h3><?php echo $value['username']?></h3>
-              <p>Телефон: <?php echo $value['phone']?></p>
-              <p>email: <?php echo $value['email']?></p>
-              <hr>
-              <?php 
-                $reg = query("SELECT * FROM `registrations` WHERE person_id = '".$value['id']."'",$dbh);
-                $total = 0;
-                foreach ($reg as $key => $value) {
-                  $price = query("SELECT price FROM `service` WHERE id = '".$reg[$key]['service_id']."'",$dbh);
-                  $total += $price[0]['price'];
-                }
-              ?>
-              <p>Кол-во клиентов: <?php echo count($reg);?></p>
-              <p>Сумма заказов: <?php echo $total?> тг.</p>
-            </div>
-          </div>
-        </div>
-        <?php } ?>
+       
       </div>
     </main>
   </div>

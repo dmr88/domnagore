@@ -112,33 +112,10 @@ if(isset($_COOKIE['admin']) && $_COOKIE['admin'] == "21232f297a57a5a743894a0e4a8
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="/">
-                <svg class="bi"><use xlink:href="#house-fill"></use></svg>
-                На главную
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="profile.php">
-                <svg class="bi"><use xlink:href="#calendar3"></use></svg>
-                Записи
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="person.php">
-                <svg class="bi"><use xlink:href="#list"></use></svg>
-                По специалистам
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="services.php">
-                <svg class="bi"><use xlink:href="#people"></use></svg>
-                Услуги
-              </a>
-            </li>
-          </ul>
-
+          <?php 
+            echo "Добро пожаловать, ". $me['username'];
+            mainNav($me['role_id']);
+          ?>
 
           <hr class="my-5">
 
@@ -171,14 +148,15 @@ if(isset($_COOKIE['admin']) && $_COOKIE['admin'] == "21232f297a57a5a743894a0e4a8
           	foreach ($orders as $key => $value) {
           		$id = $value["id"];
           		$proc = $value["regName"];
+              $service_name = query("SELECT `name` FROM `service` WHERE id = '".$value['service_id']."'", $dbh);
           		$username = $value["username"];
           		$time = $value["time"];
-                print("<tr>
+                echo "<tr>
                     <td>$id</td>
                     <td>$time</td>
                     <td>$username</td>
-                    <td>$proc</td>
-            	  </tr>");
+                    <td>".$service_name[0]['name']."</td>
+            	  </tr>";
           	}
           	?>
           </tbody>
